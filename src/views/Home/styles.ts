@@ -19,6 +19,7 @@ export const Container = styled.div`
   gap: 24px;
 
   h1 {
+    text-align: center;
     color: white;
     font-size: 1.5rem;
   }

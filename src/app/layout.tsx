@@ -23,8 +23,13 @@ export default function RootLayout({
   return (
     <html className={inter.className}>
       <head>
-        <link rel="icon" href="/icon.svg" />
+        <link rel="icon" href="/icon.svg" type="image/x-icon" />
         <title>year in pixels</title>
+        {/* <link rel="icon" type="image/x-icon" href="/images/favicon.ico"> */}
+        <meta
+          name="description"
+          content="Avalie os dias do seu ano e monitore hábitos"
+        />
       </head>
       <body>
         <QueryClientProvider client={queryClient}>

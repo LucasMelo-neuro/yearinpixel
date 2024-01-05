@@ -55,6 +55,7 @@ const CustomLayout: React.FC<CustomLayoutI> = ({ children }) => {
       >
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <Image src={Icon} alt="icon" />
+          <p style={{ lineHeight: 'initial'}}>year in pixel</p>
         </div>
         <div style={{ display: "flex", gap: 4, alignItems: "flex-start" }}>
           <p style={{ lineHeight: "initial" }}>{user.name}</p>

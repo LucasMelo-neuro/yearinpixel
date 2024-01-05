@@ -35,7 +35,7 @@ export function YearProvider({ children }: YearProviderProps): JSX.Element {
 
   const initialUser = storedUser
     ? JSON.parse(storedUser)
-    : { year: createYearObject(), name: "" };
+    : { year: createYearObject(), name: "Convidado" };
 
   const [user, setUser] = useState<UserI>(initialUser);
 
