@@ -8,6 +8,8 @@ import AntdRegistry from "lib/AntdRegistry";
 
 import theme from "theme/antdThemeConfig";
 import GlobalStyle from "theme/global";
+import CustomLayout from "components/Layout";
+import { YearProvider } from "contexts/useYear";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,13 +22,19 @@ export default function RootLayout({
 }) {
   return (
     <html className={inter.className}>
+      <head>
+        <link rel="icon" href="/icon.svg" />
+        <title>year in pixels</title>
+      </head>
       <body>
         <QueryClientProvider client={queryClient}>
           <AntdRegistry>
             <AntdProvider theme={theme}>
               <StyledComponentsRegistry>
                 <GlobalStyle />
-                {children}
+                <YearProvider>
+                  <CustomLayout>{children}</CustomLayout>
+                </YearProvider>
               </StyledComponentsRegistry>
             </AntdProvider>
           </AntdRegistry>
