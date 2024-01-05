@@ -1,4 +1,4 @@
-import { eachDayOfInterval, format } from 'date-fns';
+import { eachDayOfInterval, format, parseISO } from 'date-fns';
 
 export interface MonthObject {
   [month: string]: { [date: string]: number };
@@ -9,11 +9,12 @@ export interface UserI {
   year: MonthObject;
 }
 
-export function createObjectByMonths(startDate: Date, endDate: Date): MonthObject {
-  const datesArray = eachDayOfInterval({ start: startDate, end: endDate });
+export function createObjectByMonths(): MonthObject {
+  const datesArray = eachDayOfInterval({ start: 
+    parseISO('2024-01-01'), end: parseISO('2024-12-31') });
 
   const objectByMonths: MonthObject = {};
-  datesArray.forEach((date) => {
+  datesArray.forEach((date, index) => {
     const monthKey = format(date, 'MMMM');
     const formattedDate = format(date, 'yyyy-MM-dd');
 
@@ -21,9 +22,28 @@ export function createObjectByMonths(startDate: Date, endDate: Date): MonthObjec
       objectByMonths[monthKey] = {};
     }
 
-    // Inicializa o valor como 0
     objectByMonths[monthKey][formattedDate] = 0;
   });
 
   return objectByMonths;
+}
+
+export function countValuesOverall(obj: MonthObject): { [value: number]: number } {
+  const valuesCount: { [value: number]: number } = {};
+
+  Object.keys(obj).forEach((month) => {
+    const monthData = obj[month];
+
+    Object.keys(monthData).forEach((date) => {
+      const value = monthData[date];
+
+      if (valuesCount[value]) {
+        valuesCount[value]++;
+      } else {
+        valuesCount[value] = 1;
+      }
+    });
+  });
+
+  return valuesCount;
 }

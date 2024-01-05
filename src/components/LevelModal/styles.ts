@@ -13,6 +13,12 @@ export const Wrapper = styled.main``;
 export const RateContainer = styled.div`
   display: flex;
   gap: 8px;
+
+  margin-bottom: 8px;
+  
+  span {
+    font-size: 12px !important;
+  }
 `;
 
 export const Icon = styled.div<{

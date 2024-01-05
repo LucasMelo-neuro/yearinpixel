@@ -2,7 +2,7 @@ import LevelModal from "components/LevelModal";
 import * as S from "./styles";
 import { FC, useState } from "react";
 import { useYear } from "contexts/useYear";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 interface SquareI {
   day: string;
@@ -29,7 +29,7 @@ const Square: FC<SquareI> = ({ day, initialLevel }) => {
   };
 
   const handleOk = (newLevel: number | undefined) => {
-    const month = format(new Date(day), 'MMM')
+    const month = format(parseISO(day), 'MMMM')
 
     updateUser(newLevel || 0, month, day)
     setLevel(newLevel);

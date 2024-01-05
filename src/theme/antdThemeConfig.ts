@@ -4,7 +4,7 @@ const theme: ThemeConfig = {
   algorithm: antdTheme.darkAlgorithm,
   token: {
     fontSize: 16,
-    colorPrimary: "#FF7A79",
+    colorPrimary: "#8eb2eb",
   },
 };
 

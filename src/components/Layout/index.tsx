@@ -8,20 +8,22 @@ import type { MenuProps } from "antd";
 import { Layout, Menu, theme } from "antd";
 import Icon from "./icon.svg";
 import Image from "next/image";
+import Link from "next/link";
 import { useYear } from "contexts/useYear";
+import { usePathname } from "next/navigation";
 
 const { Header, Content, Sider } = Layout;
 
 const items: MenuProps["items"] = [
   {
-    key: `Ano`,
+    key: `/`,
     icon: React.createElement(AppstoreOutlined),
-    label: `Ano`,
+    label: <Link href="/">Ano</Link>,
   },
   {
-    key: `Hábitos`,
+    key: `/habitos`,
     icon: React.createElement(ExperimentOutlined),
-    label: `Hábitos`,
+    label: <Link href="/habitos">Hábitos</Link>,
   },
 ];
 
@@ -33,6 +35,8 @@ const CustomLayout: React.FC<CustomLayoutI> = ({ children }) => {
   const {
     token: { colorBgContainer, borderRadiusLG, colorBgMask },
   } = theme.useToken();
+
+  const pathname = usePathname()
 
   const { user, setVertical } = useYear();
 
@@ -53,23 +57,21 @@ const CustomLayout: React.FC<CustomLayoutI> = ({ children }) => {
           <Image src={Icon} alt="icon" />
         </div>
         <div style={{ display: "flex", gap: 4, alignItems: "flex-start" }}>
-          <p style={{ lineHeight: 'initial'}}>{user.name}</p>
+          <p style={{ lineHeight: "initial" }}>{user.name}</p>
           <UserOutlined />
         </div>
       </Header>
       <Layout>
-        <Sider width={180} style={{ background: colorBgContainer }}
-        breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => setVertical(broken)}
-        // onCollapse={(collapsed) => {
-        //   console.log(collapsed, type);
-        // }}
+        <Sider
+          width={180}
+          style={{ background: colorBgContainer }}
+          breakpoint="lg"
+          collapsedWidth="0"
+          onBreakpoint={(broken) => setVertical(broken)}
         >
           <Menu
             mode="inline"
-            defaultSelectedKeys={["1"]}
-            defaultOpenKeys={["sub1"]}
+            selectedKeys={[pathname]}
             style={{ height: "100%", borderRight: 0 }}
             items={items}
           />

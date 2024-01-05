@@ -8,29 +8,23 @@ import {
   EmojiSad,
 } from "@styled-icons/fluentui-system-filled";
 import * as S from "./styles";
+import { format, parseISO } from "date-fns";
 
 interface ModalI {
   day: string;
   initialLevel: number;
   open: boolean;
-  handleOk: (newLevel: 2 | 1 | 3 | 4 | 5 | undefined) => void;
+  handleOk: (newLevel: number | undefined) => void;
   handleCancel: () => void;
 }
 
-const LevelModal: FC<ModalI> = ({ open, handleOk, handleCancel }) => {
-  const customIcons: Record<number, React.ReactNode> = {
-    1: <EmojiSad size={24} />,
-    2: <EmojiSadSlight size={24} />,
-    3: <EmojiMeh size={24} />,
-    4: <Emoji size={24} />,
-    5: <EmojiLaugh size={24} />,
-  };
+const LevelModal: FC<ModalI> = ({ open, handleOk, handleCancel, day, initialLevel }) => {
 
-  const [level, setLevel] = useState<2 | 1 | 3 | 4 | 5 | undefined>(undefined);
+  const [level, setLevel] = useState<number | undefined>(initialLevel);
 
   return (
     <Modal
-      title="Dia 03/01/2024"
+      title={`Dia ${format(parseISO(day), 'dd/MM/yyyy')}`}
       open={open}
       onOk={() => handleOk(level)}
       onCancel={handleCancel}
@@ -67,6 +61,8 @@ const LevelModal: FC<ModalI> = ({ open, handleOk, handleCancel }) => {
           <EmojiLaugh onClick={() => setLevel(5)} size={24} />
         </S.Icon>
       </S.RateContainer>
+
+      <Button size="small" onClick={() => setLevel(0)}>Limpar</Button>
     </Modal>
   );
 };

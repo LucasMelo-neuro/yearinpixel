@@ -8,9 +8,39 @@ import {
   EmojiSad,
 } from "@styled-icons/fluentui-system-filled";
 import { useYear } from "contexts/useYear";
+import { useEffect, useState } from "react";
+import { countValuesOverall } from "utils/functions";
 
 const Home = () => {
   const { user, vertical } = useYear();
+  const [valuesOverall, setValuesOverall] = useState<{
+    [value: number]: number;
+  }>(() => {
+    const result = countValuesOverall(user.year);
+    return result;
+  });
+
+  useEffect(() => {
+    setValuesOverall(() => {
+      const result = countValuesOverall(user.year);
+      return result;
+    });
+  }, [user]);
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
   return (
     <S.Container>
@@ -68,7 +98,7 @@ const Home = () => {
           <p>D</p>
         </S.LabelMonthGrid>
         <S.MonthGrid vertical={vertical}>
-          {Object.keys(user.year).map((month) => (
+          {months.map((month) => (
             <S.DaysGrid key={month} vertical={vertical}>
               {Object.entries(user.year[month]).map(([day, level]) => (
                 <Square key={day} day={day} initialLevel={level} />
@@ -81,23 +111,23 @@ const Home = () => {
       <S.Icons>
         <S.Icon level={1}>
           <EmojiSad size={36} />
-          <p>12</p>
+          <p>{valuesOverall["1"] || '0'}</p>
         </S.Icon>
         <S.Icon level={2}>
           <EmojiSadSlight size={36} />
-          <p>12</p>
+          <p>{valuesOverall["2"] || '0'}</p>
         </S.Icon>
         <S.Icon level={3}>
           <EmojiMeh size={36} />
-          <p>12</p>
+          <p>{valuesOverall["3"] || '0'}</p>
         </S.Icon>
         <S.Icon level={4}>
           <Emoji size={36} />
-          <p>12</p>
+          <p>{valuesOverall["4"] || '0'}</p>
         </S.Icon>
         <S.Icon level={5}>
           <EmojiLaugh size={36} />
-          <p>12</p>
+          <p>{valuesOverall["5"] || '0'}</p>
         </S.Icon>
       </S.Icons>
     </S.Container>
